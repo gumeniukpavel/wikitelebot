@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from telebot import types, TeleBot
 import wikipedia
 
@@ -52,7 +55,10 @@ def send_text(message):
     if search_results:
         for i in search_results:
             if i.lower() == message.text.lower():
-                bot.send_message(message.chat.id, wikipedia.summary(i))
+                try:
+                    bot.send_message(message.chat.id, wikipedia.summary(i))
+                except:
+                    bot.send_message(message.chat.id, 'Помилка')
                 return
             keyboard.add(i)
         bot.send_message(message.chat.id, 'Натисни на потрібний запит: ', reply_markup=keyboard)
